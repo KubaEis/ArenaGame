@@ -6,39 +6,43 @@ public class Game {
     ArrayList<NPC> npcs = new ArrayList<>();
 
     public void start() {
-
-        /* ✅ ZÁKLAD 7:
-         vytvoř alespoň 3 NPC:
-         - různé chování
-         - přidej do seznamu*/
-
+        RandomBehavior r = new RandomBehavior();
+        AggressiveBehavior ag = new AggressiveBehavior();
+        PassiveBehavior p = new PassiveBehavior();
+        NPC npc1 = new NPC("franta",50,50,r);
+        NPC npc2 = new NPC("Stepan",60,50,ag);
+        NPC npc3 = new NPC("Honza",40,50,p);
+        npcs.add(npc1);
+        npcs.add(npc2);
+        npcs.add(npc3);
 
         int choice;
 
-        // ✅ ZÁKLAD 8: menu
         do {
             System.out.println("1 - další kolo");
 
-            // ⭐ BONUS 5: odkomentuj
-            // System.out.println("2 - vypiš NPC");
+            System.out.println("2 - vypiš NPC");
 
             // ⭐ BONUS 6:odkomentuj
             //System.out.println("3 - změň chování NPC");
 
             System.out.println("4 - konec");
 
-            // TODO načti volbu (patří do ✅ ZÁKLAD 8)
-
+            System.out.println("volba:");
+            choice = sc.nextInt();
+            sc.nextLine();
 
             if (choice == 1) {
 
-                /* ✅ ZÁKLAD 9:
-                 každé NPC provede akci
-                 hint: zkus použít for-each*/
+                for(int i=0;i<npcs.size();i++){
+                    npcs.get(i).performAction(npcs);
+                }
 
-
-                // ⭐ BONUS 6:
-                // odstraň mrtvé NPC (hp <= 0)
+                for(int i=0;i<npcs.size();i++){
+                    if (npcs.get(i).getHP() < 1){
+                        npcs.remove(i);
+                    }
+                }
 
 
                 // ⭐ BONUS 7:
@@ -47,7 +51,10 @@ public class Game {
 
             // ⭐ BONUS 5:
             if (choice == 2) {
-                // TODO vypiš všechny NPC
+                for(int i=0;i<npcs.size();i++){
+                    npcs.get(i).printInfo();
+
+                }
             }
 
             // ⭐ BONUS 6:
@@ -56,6 +63,7 @@ public class Game {
                 // TODO změň behavior
             }
 
-        } while (/* TODO podmínka (patří do ✅ ZÁKLAD 8) */);
+        } while (choice != 4);
+        System.out.println("Hra skončila.");
     }
 }

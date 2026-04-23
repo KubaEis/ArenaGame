@@ -1,14 +1,16 @@
 import java.util.*;
 
 public class PassiveBehavior implements Behavior {
+    @Override
+    public void act(NPC self, ArrayList<NPC> all) {
+        self.setHP(self.getHP() + 3);
+        System.out.println(self.getName() + " se vylecil o 3 hp");
+    }
 
-    /* ✅ ZÁKLAD 3B:
-     implementuj act():
-     - přidej HP sobě (např. +3)
-     - vypiš akci */
 
-
-    // ✅ ZÁKLAD 4B: getName()
+    public String  getName() {
+        return "Pasivni chovani";
+    }
 
 
     // ⭐ BONUS 2B: omez max HP (např. 100)

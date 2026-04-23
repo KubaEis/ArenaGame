@@ -1,23 +1,33 @@
+import java.security.spec.NamedParameterSpec;
 import java.util.*;
 
 public class NPC {
+    private String name;
+    private int hp;
+    private int maxHP;
+    private Behavior chovani;
+    NPC(String name, int hp, int maxHP, Behavior chovani) {
+        this.name = name;
+        this.hp = 50;
+        this.maxHP = 50;
+        this.chovani = chovani;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public int getHP() {
+        return hp;
+    }
+    public void setHP(int hp) {
+        this.hp = hp;
+    }
 
-    /* ✅ ZÁKLAD 5:
-     atributy:
-     name (String)
-     hp (int)
-     behavior (Behavior) */
-
-
-    /* ✅ ZÁKLAD 5:
-     konstruktor:
-     nastav jméno, behavior
-     nastav hp (např. 50) */
-
-
-    /* ✅ ZÁKLAD 6:
-     metoda performAction()
-     zavolá behavior.act(...) */
+    public void performAction(ArrayList<NPC> npcs){
+        chovani.act(this,npcs);
+    }
 
 
     /* ⭐ BONUS 4:
@@ -25,7 +35,8 @@ public class NPC {
      vrací true/false */
 
 
-    /* ⭐ BONUS 5:
-     metoda printInfo()
-     vypíše jméno + HP + typ chování */
+    public void printInfo(){
+        System.out.println("NPC name: " + this.name);
+        System.out.println("HP: " + this.hp);
+    }
 }
