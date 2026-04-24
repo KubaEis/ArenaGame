@@ -23,8 +23,8 @@ public class Game {
 
             System.out.println("2 - vypiš NPC");
 
-            // ⭐ BONUS 6:odkomentuj
-            //System.out.println("3 - změň chování NPC");
+
+            System.out.println("3 - změň chování NPC");
 
             System.out.println("4 - konec");
 
@@ -38,18 +38,16 @@ public class Game {
                     npcs.get(i).performAction(npcs);
                 }
 
+                npcs.removeIf(npc -> npc.getHP() <= 0);
+
+                int pocet = 0;
                 for(int i=0;i<npcs.size();i++){
-                    if (npcs.get(i).getHP() < 1){
-                        npcs.remove(i);
-                    }
+                    pocet++;
                 }
-
-
-                // ⭐ BONUS 7:
-                // pokud zbyde 1 NPC → vypiš vítěze
+                if (pocet == 1){
+                    System.out.println("Vyhral hrac: "+npcs.get(0).getName());
+                }
             }
-
-            // ⭐ BONUS 5:
             if (choice == 2) {
                 for(int i=0;i<npcs.size();i++){
                     npcs.get(i).printInfo();
@@ -57,10 +55,47 @@ public class Game {
                 }
             }
 
-            // ⭐ BONUS 6:
             if (choice == 3) {
-                // TODO vyber NPC (index)
-                // TODO změň behavior
+                // 1. Kontrola, jestli máme vůbec nějaká NPC
+                if (npcs.isEmpty()) {
+                    System.out.println("V seznamu nejsou žádná NPC, která by šla měnit.");
+                } else {
+                    System.out.println("Zadej index NPC (0 až " + (npcs.size() - 1) + "):");
+
+                    int index = sc.nextInt();
+                    sc.nextLine();
+
+                    if (index >= 0 && index < npcs.size()) {
+                        System.out.println("Měníš chování pro: " + npcs.get(index).getName());
+                        System.out.println("1) Agresive behaviour");
+                        System.out.println("2) Passive behaviour");
+                        System.out.println("3) Random behaviour");
+                        System.out.print("vyber:");
+
+                        int behaviorChoice = sc.nextInt();
+                        sc.nextLine();
+
+                        switch (behaviorChoice) {
+                            case 1:
+                                npcs.get(index).setChovani(ag);
+                                System.out.println("Chování změněno na agresivní.");
+                                break;
+                            case 2:
+                                npcs.get(index).setChovani(p);
+                                System.out.println("Chování změněno na pasivní.");
+                                break;
+                            case 3:
+                                npcs.get(index).setChovani(r);
+                                System.out.println("Chování změněno na náhodné.");
+                                break;
+                            default:
+                                System.out.println("Neplatná volba chování.");
+                                break;
+                        }
+                    } else {
+                        System.out.println("Chyba: NPC s indexem " + index + " neexistuje!");
+                    }
+                }
             }
 
         } while (choice != 4);
